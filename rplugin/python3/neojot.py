@@ -87,3 +87,17 @@ class NeoJot(object):
                 notes[f.stem] = f
                 dates.append(f.stem)
         return sorted(dates), notes
+
+    @pynvim.function("NeoJotToggleTodo", sync=True)
+    def toggle_todo(self, args):
+        # how to get current line cursor is on
+        row, col = self.nvim.api.win_get_cursor(0)
+        current_line = self.nvim.api.buf_get_lines(0, row - 1, row, False)[0]
+        new_line = current_line
+        if re.search(r"- \[.\]", current_line):
+            if "- [ ]" in current_line:
+                new_line = current_line.replace("- [ ]", "- [X]")
+            elif "- [X]" in current_line:
+                new_line = current_line.replace("- [X]", "- [ ]")
+
+            self.nvim.api.buf_set_lines(0, row - 1, row, False, [new_line])

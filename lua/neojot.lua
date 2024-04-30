@@ -14,6 +14,8 @@ local function setup(cfg)
 
     vim.keymap.set('n', '<C-Up>', ':call NeoJotOpenDailyNext()<CR>', keymap_opts)
     vim.keymap.set('n', '<C-Down>', ':call NeoJotOpenDailyPrev()<CR>', keymap_opts)
+
+    vim.keymap.set('n', '<Leader><Space>', ':call NeoJotToggleTodo()<CR>', keymap_opts)
 end
 
 -- Used in Python to get config
